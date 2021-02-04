@@ -1,0 +1,20 @@
+div {
+    height: 100vh;
+    background-color: black;
+}
+
+.Search {
+    width: 10%;
+    height: 100%;
+    background-color: blue;
+    display: inline-block;
+  
+}
+
+.Map {
+    width: 90%;
+    height: 100%;
+    background-color: blueviolet;
+
+    display: inline-block;
+}
