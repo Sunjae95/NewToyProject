@@ -10,7 +10,8 @@ router.get('/', (req, res) => {
             "X-Naver-Client-Id": "zx74mjFuSJ4fcqPaZKwn",
             "X-Naver-Client-Secret": "Z7Ur57Xw4G"
         }
-    }).then(result => {
+    })
+    .then(result => {
         // response 처리
         // 응답을 JSON 형태로 파싱
         return result.json();

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
+import Result from './Result';
 
 function Search() {
     
-    const [Search, setSearch] = useState("");
+    const [Search, setSearch] = useState(1);
+    const [SearchResult, setSearchResult] = useState([]);
 
     const onChangeSearch = (event) => {
         setSearch(event.current.value);
@@ -11,11 +13,14 @@ function Search() {
 
     const onSearchSubmit = (event) => {
         event.preventDefault();
-        console.log('onSearchStart');
+        //server -> search API -> server -> here
         Axios.get('http://localhost:5000/api/search')
-            .then(result => console.log(result.data.items));
-
-        console.log('onSearchEnd');
+            // .then(result => result.json())
+            .then(result => result.data.items)
+            .then(result => {
+                setSearchResult(result);
+                }
+            )
     }
 
     return (
@@ -24,9 +29,15 @@ function Search() {
                 <label>검색</label>
                 <input type="text" placeholder="검색어를 입력하세요" onChange={ onChangeSearch }></input>
             </form>
-            {/* 결과 창 */}
             <div>
-                결과
+                { SearchResult && SearchResult.map((searchResult, index) => (
+                    <React.Fragment key={index.toString()}>
+                        <Result 
+                            title = {searchResult.title}
+                            address = {searchResult.address}
+                        />
+                    </React.Fragment>
+                ))}
             </div>
         </div>
     )
