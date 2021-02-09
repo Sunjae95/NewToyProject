@@ -3,7 +3,8 @@ import React from 'react'
 function Result(props) {
     return (
         <div>
-            {props.title}{props.address}
+            {props.title}<br/>
+            {props.address}
         </div>
     )
 }

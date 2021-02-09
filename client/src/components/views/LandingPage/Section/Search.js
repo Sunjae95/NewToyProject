@@ -4,21 +4,29 @@ import Result from './Result';
 
 function Search() {
     
-    const [Search, setSearch] = useState(1);
+    const [Search, setSearch] = useState("");
     const [SearchResult, setSearchResult] = useState([]);
-
+    // const [Searchxy, setSearchxy] = useState();
     const onChangeSearch = (event) => {
-        setSearch(event.current.value);
+        setSearch(event.target.value);
     }
 
     const onSearchSubmit = (event) => {
         event.preventDefault();
         //server -> search API -> server -> here
-        Axios.get('http://localhost:5000/api/search')
-            // .then(result => result.json())
-            .then(result => result.data.items)
+        const searchData = encodeURI(Search);   //한글로 보낼시 인코딩 필수!
+        Axios.post('http://localhost:5000/api/search', {
+            data: {
+                searchData
+            }
+        })
+            .then(result => {
+                console.log(result.data.items);
+                return result.data.items;
+            })
             .then(result => {
                 setSearchResult(result);
+           
                 }
             )
     }

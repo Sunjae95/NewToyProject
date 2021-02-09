@@ -1,11 +1,12 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var cors =require('cors');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const bodyParser = require("body-parser");
+const cors =require('cors');
+const logger = require('morgan');
 
 
-var app = express();
+const app = express();
 
 
 // view engine setup
@@ -15,7 +16,9 @@ app.set('view engine', 'jade');
 app.use(cors({ origin: ['http://localhost:3000'], credentials: true}))  //CORS 이슈 해결
 app.use(logger('dev'));
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
