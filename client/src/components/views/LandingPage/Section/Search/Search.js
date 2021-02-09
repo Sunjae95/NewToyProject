@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
-import Result from './Result';
+import Result from './Result.js';
 
-function Search() {
+function Search(props) {
     
     const [Search, setSearch] = useState("");
-    const [SearchResult, setSearchResult] = useState([]);
-    // const [Searchxy, setSearchxy] = useState();
+    
+
     const onChangeSearch = (event) => {
         setSearch(event.target.value);
     }
@@ -16,29 +16,27 @@ function Search() {
         //server -> search API -> server -> here
         const searchData = encodeURI(Search);   //한글로 보낼시 인코딩 필수!
         Axios.post('http://localhost:5000/api/search', {
-            data: {
-                searchData
-            }
-        })
+                data: {
+                    searchData
+                }
+            })
             .then(result => {
                 console.log(result.data.items);
                 return result.data.items;
             })
             .then(result => {
-                setSearchResult(result);
-           
+                return props.setSearchResult(result);
                 }
-            )
+            );
     }
 
     return (
         <div >
             <form onSubmit={ onSearchSubmit }>
-                <label>검색</label>
-                <input type="text" placeholder="검색어를 입력하세요" onChange={ onChangeSearch }></input>
+                <label>검색</label><input type="text" placeholder="@@@동 맛집 입력하세요" onChange={ onChangeSearch }></input>
             </form>
             <div>
-                { SearchResult && SearchResult.map((searchResult, index) => (
+                { props.SearchResult && props.SearchResult.map((searchResult, index) => (
                     <React.Fragment key={index.toString()}>
                         <Result 
                             title = {searchResult.title}
@@ -48,7 +46,7 @@ function Search() {
                 ))}
             </div>
         </div>
-    )
+    );
 }
 
 export default Search
