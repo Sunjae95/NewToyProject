@@ -8,19 +8,14 @@ function LandingPage() {
     const [SearchResult, setSearchResult] = useState([]);
 
     return (
-        <div className="main">
-            <div className="search">
+        <div id="main">
                 <Search
                     SearchResult = { SearchResult }
                     setSearchResult = { setSearchResult }
                 />
-            </div>
-            <div className="map">
                 <Map
                     SearchResult = { SearchResult }
                 />
-            </div>
-            
         </div>
     )
 }

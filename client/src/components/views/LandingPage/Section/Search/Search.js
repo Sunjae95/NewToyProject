@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 import Result from './Result.js';
+import './Search.css';
 
 function Search(props) {
     
     const [Search, setSearch] = useState("");
     
+    const chageValue = (title) => {
+        let afterTitle = title.split('<b>');
+        let tmp = afterTitle.join('');
+        afterTitle = tmp.split('</b>');
+        // props.setSearchResult(afterTitle);
+        return afterTitle;
+    }
 
     const onChangeSearch = (event) => {
         setSearch(event.target.value);
@@ -31,20 +39,26 @@ function Search(props) {
     }
 
     return (
-        <div >
+        <div className="search">
             <form onSubmit={ onSearchSubmit }>
-                <label>검색</label><input type="text" placeholder="@@@동 맛집 입력하세요" onChange={ onChangeSearch }></input>
+                <div className="searchBar">
+                    <div>
+                        <input type="button" value="🔍" onClick={ onSearchSubmit }></input>
+                        <input type="text" placeholder="@@@동 맛집 입력하세요" onChange={ onChangeSearch }></input>   
+                    </div>
+                </div>
             </form>
-            <div>
-                { props.SearchResult && props.SearchResult.map((searchResult, index) => (
-                    <React.Fragment key={index.toString()}>
+            { props.SearchResult && props.SearchResult.map((searchResult, index) => (
+                <React.Fragment key={index.toString()}>
+                    <div className="searchResult">
                         <Result 
-                            title = {searchResult.title}
+                            title = { chageValue(searchResult.title) }
+                            link = { searchResult.link }
                             address = {searchResult.address}
                         />
-                    </React.Fragment>
-                ))}
-            </div>
+                    </div>  
+                </React.Fragment>
+            ))}
         </div>
     );
 }

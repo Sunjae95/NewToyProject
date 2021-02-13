@@ -9,8 +9,8 @@ function Map(props) {
                     <NaverMap 
                         mapDivId={'maps-getting-started-uncontrolled'} // default: react-naver-map
                         style={{
-                        width: '100%',
-                        height: '100%',
+                            width: '70%',
+                        
                         }}
                         defaultCenter={{ 
                             lat: 37.3595704, 
@@ -18,7 +18,8 @@ function Map(props) {
                         defaultZoom={15}>
                      { props.SearchResult && props.SearchResult.map((searchResult, index) => (
                         <React.Fragment key={index}>
-                            <MapMaker 
+                            <MapMaker
+                                title = { searchResult.title } 
                                 mapx = {searchResult.mapx}
                                 mapy = {searchResult.mapy}
                             />
