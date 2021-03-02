@@ -11,7 +11,6 @@ function Search(props) {
         let afterTitle = title.split('<b>');
         let tmp = afterTitle.join('');
         afterTitle = tmp.split('</b>');
-        // props.setSearchResult(afterTitle);
         return afterTitle;
     }
 
@@ -29,12 +28,18 @@ function Search(props) {
                 }
             })
             .then(result => {
-                console.log(result.data.items);
                 return result.data.items;
             })
             .then(result => {
-                return props.setSearchResult(result);
-                }
+                const x = result.reduce((pre, index) => {
+                    return pre+index.mapx;
+                }, 0);
+                const y =result.reduce((pre, index) => {
+                    return pre+index.mapy;
+                },0);
+                props.setSearchResult(result);
+                props.setMapxy([ y/result.length, x/result.length ]);    
+            }
             );
     }
 
@@ -48,17 +53,19 @@ function Search(props) {
                     </div>
                 </div>
             </form>
-            { props.SearchResult && props.SearchResult.map((searchResult, index) => (
-                <React.Fragment key={index.toString()}>
-                    <div className="searchResult">
-                        <Result 
-                            title = { chageValue(searchResult.title) }
-                            link = { searchResult.link }
-                            address = {searchResult.address}
-                        />
-                    </div>  
-                </React.Fragment>
-            ))}
+            <div className="searchResultContainer">
+                { props.SearchResult && props.SearchResult.map((searchResult, index) => (
+                    <React.Fragment key={index.toString()}>
+                        <div className="searchResult">
+                            <Result 
+                                title = { chageValue(searchResult.title) }
+                                link = { searchResult.link }
+                                address = {searchResult.address}
+                            />
+                        </div>  
+                    </React.Fragment>
+                ))}
+            </div>
         </div>
     );
 }

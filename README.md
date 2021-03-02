@@ -1,4 +1,4 @@
-# NewToyProject
-2021-02-02~
+# Where
+내용: React와 네이버 API를 활용하여 만든 지도 검색 앱   
+기간: 2021-02-02~2021-02-14
 
-[html, css](https://poiemaweb.com/)

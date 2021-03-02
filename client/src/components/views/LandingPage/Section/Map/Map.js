@@ -4,18 +4,19 @@ import { RenderAfterNavermapsLoaded, NaverMap} from 'react-naver-maps';
 import MapMaker from './MapMaker';
 function Map(props) {
 
+    
     return (
-             <RenderAfterNavermapsLoaded ncpClientId={ NCP_ID } >
+             <RenderAfterNavermapsLoaded  ncpClientId={ NCP_ID }>
                     <NaverMap 
+                       
                         mapDivId={'maps-getting-started-uncontrolled'} // default: react-naver-map
                         style={{
-                            width: '70%',
-                        
+                            width: '70%',  
                         }}
                         defaultCenter={{ 
-                            lat: 37.3595704, 
-                            lng: 127.105399 }}
-                        defaultZoom={15}>
+                            lat: props.Mapxy[0], 
+                            lng: props.Mapxy[1] }}
+                        defaultZoom={17}>
                      { props.SearchResult && props.SearchResult.map((searchResult, index) => (
                         <React.Fragment key={index}>
                             <MapMaker
@@ -29,5 +30,5 @@ function Map(props) {
             </RenderAfterNavermapsLoaded>
     )
 }
-
+//126.92067465792047
 export default Map
